@@ -35,7 +35,7 @@ bot.on("ready", async () => {
 
 	checkServer(0, []);
 
-	const HeistChannel = bot.channels.get("989290416178331648"); //Gets heist channel
+	const HeistChannel = bot.channels.get(process.env.HEIST_CHANNEL); //Gets heist channel
 
 	function checkServer(index, donttrack) {
 		//Find people heisting in server
