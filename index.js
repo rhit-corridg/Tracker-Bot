@@ -28,14 +28,15 @@ function distanceBetweenCoords(x1, y1, x2, y2) {
 	const answer = Math.sqrt(whatToSqrt);
 	return answer;
 }
+
 bot.on("ready", async () => {
 	bot.user.setActivity("PIGS Robbebery", { type: "PLAYING" });
 
-	console.log(`${bot.user.username} is online!`); //logs that the bot is online
+	console.log(`${bot.user.username} is online!`);
 
 	checkServer(0, []);
 
-	const HeistChannel = bot.channels.get(process.env.HEIST_CHANNEL); //Gets heist channel
+	const HeistChannel = bot.channels.get(process.env.HEIST_CHANNEL);
 
 	function checkServer(index, donttrack) {
 		//Find people heisting in server
@@ -48,14 +49,12 @@ bot.on("ready", async () => {
 				}
 			},
 			function (error, response, body) {
-				//url to get all players
 				if (error) {
-					//server is offline
-					console.log("server offline");
+					console.log("Server offline");
+
 					if (index >= botconfig.ActiveServers.length - 1) {
 						console.log("Waiting 5 minutes");
 						setTimeout(() => {
-							//after 1000 ms
 							checkServer(0, []);
 						}, 5 * 60000);
 					} else {
@@ -65,9 +64,9 @@ bot.on("ready", async () => {
 					return;
 				}
 
-				const jsonBody = JSON.parse(body); //convert to json so we can use it
+				const jsonBody = JSON.parse(body);
 
-				let CurrentServerPoints = 0; //start at 0 people playing
+				let CurrentServerPoints = 0;
 
 				let ToTrack = null;
 
@@ -129,28 +128,24 @@ bot.on("ready", async () => {
 				}
 			},
 			function (error, response, body) {
-				//Get players on server
 				if (!error) {
-					//No error
-					let foundPerson = false; //Haven't found person
+					let foundPerson = false;
 
-					body = JSON.parse(body); //parse body
+					body = JSON.parse(body);
 
 					body.players.forEach(player => {
-						//Loop through all players
 						if (player[2] == Tracking[2]) {
 							//if in game ID is equal to the one told to search
 							console.log("Found player");
 							if (player[5].group != "pigs_job")
 								return HeistChannel.send("Player is no longer heisting");
-							foundPerson = true; //found person
+							foundPerson = true;
 
-							let currentCoords = player[3]; //Current coords is the player
+							let currentCoords = player[3];
 
-							let closeToAnything = false; //Not close to anything
+							let closeToAnything = false;
 
 							botconfig.heistLocations.forEach(coords => {
-								//Go through all positions
 								if (
 									coords.DistanceNeeded >
 									distanceBetweenCoords(
