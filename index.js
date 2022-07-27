@@ -8,11 +8,11 @@ dotenv.config();
 
 bot.login(process.env.TOKEN);
 function GetServerNumber(serverIP, serverPort) {
-	switch (`${serverIP}:${serverPort}`) {
-		case "server.tycoon.community:30120":
-			return "1";
-		case "server.tycoon.community:30121":
-			return "2";
+	switch (`${serverIP}`) {
+		case "tycoon-2epova.users.cfx.re":
+			return "NY-1";
+		case "tycoon-njyvop.users.cfx.re":
+			return "NY-2|BETA";
 		default:
 			return "idk";
 	}
